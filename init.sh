@@ -7,7 +7,7 @@ export LANG=zh_CN.UTF-8
 menu1()
 {
         clear
-        cat <<eof
+        cat << EOF
 		
 ----------------------------------------
 |****   欢迎使用cetnos7.9优化脚本    ****|
@@ -24,7 +24,7 @@ EOF
 menu2()
 {
  clear
- cat <<eof
+ cat <<EOF
 ----------------------------------------
 |****Please Enter Your Choice:[0-13]****|
 ----------------------------------------
@@ -50,7 +50,7 @@ EOF
 localeset()
 {
  echo "========================修改字符集========================="
- cat > /etc/locale.conf <<eof
+ cat > /etc/locale.conf <<EOF
 LANG="zh_CN.UTF-8"
 #LANG="en_US.UTF-8"
 SYSFONT="latarcyrheb-sun16"
@@ -164,7 +164,7 @@ kernelset()
  echo "======================优化系统内核========================="
  chk_nf=`cat /etc/sysctl.conf | grep conntrack |wc -l`
  if [ $chk_nf -eq 0 ];then
-  cat >>/etc/sysctl.conf<<eof
+  cat >>/etc/sysctl.conf<<EOF
 net.ipv4.tcp_fin_timeout = 2
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
@@ -303,7 +303,7 @@ main()
                     limitset
                     ;;
                   6)     
-            yumset
+					yumset
                     ;;
                   7)
                     kernelset
@@ -317,16 +317,16 @@ main()
                   10)
                     ntpdateset
                     ;;
-    11)
-      historyset
-      ;;
-    12)
-      main
-      ;;
-    13)
- exit
-      ;;
-    *)
+				  11)
+					historyset
+					;;
+				  12)
+					main
+					;;
+				  13)
+				exit
+				;;
+				*)
  echo 'Please select a number from [1-13].'
       ;;
  esac
