@@ -1,0 +1,15 @@
+/data/logs/grafana/*.log {
+  create 0640 grafana grafana
+  daily
+  dateext
+  missingok
+  rotate 15
+  compress
+  delaycompress
+  notifempty
+  nomail
+  copytruncate
+  postrotate
+    systemctl reload grafana
+  endscript
+}

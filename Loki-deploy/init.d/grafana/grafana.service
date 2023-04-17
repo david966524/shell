@@ -1,0 +1,31 @@
+[Unit]
+Description=Grafana instance
+Documentation=http://docs.grafana.org
+Wants=network-online.target
+After=network-online.target
+After=postgresql.service mariadb.service mysqld.service
+
+[Service]
+#EnvironmentFile=/etc/sysconfig/grafana-server
+User=grafana
+Group=grafana
+Type=notify
+Restart=on-failure
+WorkingDirectory={{GRAFANA_DIR}}
+RuntimeDirectory=grafana
+RuntimeDirectoryMode=0750
+ExecStart={{GRAFANA_DIR}}/bin/grafana-server                                                  \
+                            --config={{GRAFANA_DIR}}/conf/grafana.ini               \
+                            --pidfile=/var/run/grafana/grafana-server.pid           \
+                            --packaging=rpm                                         \
+                            cfg:default.paths.logs={{LOG_DIR}}                      \
+                            cfg:default.paths.data={{DATA_DIR}}                     \
+                            cfg:default.paths.plugins={{DATA_DIR}}/plugins          \
+                            cfg:default.paths.provisioning={{GRAFANA_DIR}}/conf/provisioning  
+
+LimitNOFILE=10000
+TimeoutStopSec=20
+SyslogIdentifier=[Grafana]
+
+[Install]
+WantedBy=multi-user.target
